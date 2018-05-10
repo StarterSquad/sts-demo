@@ -8,6 +8,7 @@ COPY docker_entrypoint.sh /
 RUN chmod +x /docker_entrypoint.sh
 
 COPY agent/agent.deb /
+COPY agent/sts-java-agent-0.6.1-SNAPSHOT.jar /
 
 RUN dpkg -i /agent.deb
 
