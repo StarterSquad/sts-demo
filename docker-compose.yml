@@ -1,0 +1,22 @@
+version: '3.2'
+
+services:
+  db:
+    image: 'stackstate-demo-db:latest'
+    environment:
+      POSTGRES_USER: 'app'
+      POSTGRES_PASSWORD: 'app'
+      POSTGRES_DB: 'app'
+    healthcheck:
+      test: psql -U app app -c "select 1" || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    ports:
+      - '5432:5432'
+  app:
+    image: 'stackstate-demo-app:latest'
+    ports:
+      - '8081:8081'
+    depends_on:
+      - db
